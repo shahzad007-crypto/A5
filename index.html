@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listening Skill Builder: Dates, Numbers, and Names</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght=400;700;900&display=swap" rel="stylesheet">
+    <!-- Font Awesome for Ticks/Crosses -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #eef2f6; /* Light gray-blue background */
+        }
+        /* Required 32px Bold Font for Score */
+        .score-display {
+            font-size: 32px;
+            font-weight: 900;
+        }
+        .section-header {
+            border-left: 6px solid #10b981; /* Emerald green border */
+        }
+        .quiz-card {
+            max-width: 4xl;
+            margin-left: auto;
+            margin-right: auto;
+            background-color: white;
+            padding: 2.5rem;
+            border-radius: 1rem;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        /* Custom styling for True/False buttons */
+        input[type="radio"]:checked + label {
+            border-color: #059669; /* Darker Green */
+            background-color: #d1fae5;
+            color: #065f46;
+            box-shadow: 0 0 0 2px #059669;
+        }
+        .correct-label {
+            background-color: #d1fae5 !important; /* Green 100 */
+            border-color: #34d399 !important; /* Green 400 */
+        }
+        .incorrect-label {
+            background-color: #fee2e2 !important; /* Red 100 */
+            border-color: #f87171 !important; /* Red 400 */
+        }
+        .audio-player-container {
+            min-height: 50px;
+        }
+    </style>
+</head>
+<body class="p-4 md:p-8">
+
+    <div class="quiz-card space-y-8">
+
+        <!-- Header and Score Display -->
+        <header class="text-center mb-8 border-b pb-4">
+            <h1 class="text-3xl font-bold text-gray-800">Listening Skill Builder: Extracting Key Details</h1>
+            <p class="text-gray-500 mt-1">Listen to each audio track and write the specific information (dates, numbers, names) you hear. (1 Mark Each)</p>
+            <div id="score-container" class="mt-4 p-4 bg-emerald-50 rounded-xl hidden border-2 border-emerald-200">
+                <span id="score-text" class="text-emerald-700 score-display">
+                    0 / 25
+                </span>
+            </div>
+        </header>
+
+        <form id="listening-quiz-form" class="space-y-10">
+
+            <!-- Section 1: Dates & Days (6 Questions) -->
+            <div id="section-1" class="section-container">
+                <div class="section-header px-4 py-2 bg-gray-50 rounded-r-lg shadow-sm mb-6">
+                    <h2 class="text-xl font-semibold text-gray-700">Part 1: Days and Specific Dates</h2>
+                    <p class="text-sm text-gray-500">Listen for the specific days and dates mentioned. (6 Questions)</p>
+                </div>
+                <div class="audio-player-container mb-6 p-4 bg-blue-50 border border-blue-200 rounded-lg">
+                    <button type="button" onclick="generateAndPlayAudio(1, this)" id="audio-btn-1" class="w-full md:w-auto px-6 py-2 bg-blue-600 text-white font-bold rounded-lg shadow-md hover:bg-blue-700 transition duration-150">
+                        <i class="fa-solid fa-play mr-2"></i> Listen to Audio 1 (Days & Dates)
+                    </button>
+                    <div id="audio-playback-1" class="mt-3"></div>
+                </div>
+                <!-- Questions 1-6 will be inserted here -->
+            </div>
+
+            <!-- Section 2: Units of Measurement & Numbers (6 Questions) -->
+            <div id="section-2" class="section-container">
+                <div class="section-header px-4 py-2 bg-gray-50 rounded-r-lg shadow-sm mb-6">
+                    <h2 class="text-xl font-semibold text-gray-700">Part 2: Numbers and Units</h2>
+                    <p class="text-sm text-gray-500">Listen for numerical values and units of measurement (e.g., meters, kilos). (6 Questions)</p>
+                </div>
+                <div class="audio-player-container mb-6 p-4 bg-blue-50 border border-blue-200 rounded-lg">
+                    <button type="button" onclick="generateAndPlayAudio(2, this)" id="audio-btn-2" class="w-full md:w-auto px-6 py-2 bg-blue-600 text-white font-bold rounded-lg shadow-md hover:bg-blue-700 transition duration-150">
+                        <i class="fa-solid fa-play mr-2"></i> Listen to Audio 2 (Numbers & Units)
+                    </button>
+                    <div id="audio-playback-2" class="mt-3"></div>
+                </div>
+                <!-- Questions 7-12 will be inserted here -->
+            </div>
+
+            <!-- Section 3: Nationality & Country Names (6 Questions) -->
+            <div id="section-3" class="section-container">
+                <div class="section-header px-4 py-2 bg-gray-50 rounded-r-lg shadow-sm mb-6">
+                    <h2 class="text-xl font-semibold text-gray-700">Part 3: Countries and Nationality</h2>
+                    <p class="text-sm text-gray-500">Listen for names of countries and nationalities. (6 Questions)</p>
+                </div>
+                <div class="audio-player-container mb-6 p-4 bg-blue-50 border border-blue-200 rounded-lg">
+                    <button type="button" onclick="generateAndPlayAudio(3, this)" id="audio-btn-3" class="w-full md:w-auto px-6 py-2 bg-blue-600 text-white font-bold rounded-lg shadow-md hover:bg-blue-700 transition duration-150">
+                        <i class="fa-solid fa-play mr-2"></i> Listen to Audio 3 (Country & Nationality)
+                    </button>
+                    <div id="audio-playback-3" class="mt-3"></div>
+                </div>
+                <!-- Questions 13-18 will be inserted here -->
+            </div>
+            
+            <!-- Section 4: Months & Years (7 Questions) -->
+            <div id="section-4" class="section-container">
+                <div class="section-header px-4 py-2 bg-gray-50 rounded-r-lg shadow-sm mb-6">
+                    <h2 class="text-xl font-semibold text-gray-700">Part 4: Months and Years</h2>
+                    <p class="text-sm text-gray-500">Listen for the specific months and years mentioned in the timeline. (7 Questions)</p>
+                </div>
+                <div class="audio-player-container mb-6 p-4 bg-blue-50 border border-blue-200 rounded-lg">
+                    <button type="button" onclick="generateAndPlayAudio(4, this)" id="audio-btn-4" class="w-full md:w-auto px-6 py-2 bg-blue-600 text-white font-bold rounded-lg shadow-md hover:bg-blue-700 transition duration-150">
+                        <i class="fa-solid fa-play mr-2"></i> Listen to Audio 4 (Months & Years)
+                    </button>
+                    <div id="audio-playback-4" class="mt-3"></div>
+                </div>
+                <!-- Questions 19-25 will be inserted here -->
+            </div>
+
+
+            <!-- Submission Button -->
+            <div class="flex justify-center pt-8">
+                <button type="submit" id="submit-button" class="px-8 py-3 bg-emerald-600 text-white font-bold text-lg rounded-full shadow-lg hover:bg-emerald-700 transition duration-300 transform hover:scale-105">
+                    Submit Answers (Get Your Score)
+                </button>
+            </div>
+        </form>
+
+    </div>
+
+    <script>
+        // --- TTS & Audio Playback Functions ---
+
+        // Helper function to convert base64 audio data to ArrayBuffer
+        const base64ToArrayBuffer = (base64) => {
+            const binaryString = atob(base64);
+            const len = binaryString.length;
+            const bytes = new Uint8Array(len);
+            for (let i = 0; i < len; i++) {
+                bytes[i] = binaryString.charCodeAt(i);
+            }
+            return bytes.buffer;
+        };
+
+        // Helper function to convert raw PCM data to a WAV Blob
+        const pcmToWav = (pcm16, sampleRate) => {
+            const numChannels = 1;
+            const bytesPerSample = 2; // 16-bit PCM
+            const blockAlign = numChannels * bytesPerSample;
+            const byteRate = sampleRate * blockAlign;
+            const dataLength = pcm16.length * bytesPerSample;
+            const buffer = new ArrayBuffer(44 + dataLength);
+            const view = new DataView(buffer);
+
+            // Write WAV file header
+            // RIFF chunk
+            view.setUint32(0, 0x52494646, false); // "RIFF"
+            view.setUint32(4, 36 + dataLength, true); // ChunkSize
+            view.setUint32(8, 0x57415645, false); // "WAVE"
+
+            // fmt chunk
+            view.setUint32(12, 0x666d7420, false); // "fmt "
+            view.setUint32(16, 16, true); // Subchunk1Size (16 for PCM)
+            view.setUint16(20, 1, true); // AudioFormat (1 for PCM)
+            view.setUint16(22, numChannels, true); // NumChannels
+            view.setUint32(24, sampleRate, true); // SampleRate
+            view.setUint32(28, byteRate, true); // ByteRate
+            view.setUint16(32, blockAlign, true); // BlockAlign
+            view.setUint16(34, 16, true); // BitsPerSample
+
+            // data chunk
+            view.setUint32(36, 0x64617461, false); // "data"
+            view.setUint32(40, dataLength, true); // Subchunk2Size
+
+            // Write the PCM data (Int16)
+            for (let i = 0; i < pcm16.length; i++) {
+                view.setInt16(44 + i * bytesPerSample, pcm16[i], true);
+            }
+
+            return new Blob([view], { type: 'audio/wav' });
+        };
+        
+        // Custom scripts for each section (Targeting specific answers)
+        const audioScripts = {
+            1: "Hello. Let me tell you about the week. The first training session is always on Monday afternoon. But this week, it was moved to Tuesday. Our company will open a new center on April 23. The big presentation is always on Sunday, so please be ready. I will start my new job on October 10. The weekly market is closed on Wednesday.",
+            2: "This is a quick report on our inventory. The distance to the main warehouse is exactly 35 kilometers. Inside, the shelf we need is 90 centimeters long. The total volume required for the new tank is 500 liters. Today, the outdoor temperature is 30 degrees Celsius. The new mobile device weighs only 180 grams. The security pole is 4 meters tall.",
+            3: "Good morning, everyone. I am Omani, but I work in the capital city. My colleague Jane, sitting next to me, is from Canada. We recently hired a new American engineer to help with the design. Our main office is located in the country of Japan. The new manager is British. Remember that our biggest client is in France.",
+            4: "Let's review the timeline. The new semester always begins in September. Our big project deadline is the year 2026. The founding of this great company happened in 1998. We usually celebrate the staff holiday in December, which is always fun. The main international conference is next month in March. The current contract expires in the year 2025. We plan to begin the construction phase in the year 2027."
+        };
+
+        let audioContext = null;
+
+        const generateAndPlayAudio = async (sectionId, button) => {
+            const prompt = audioScripts[sectionId];
+            const playbackContainer = document.getElementById(`audio-playback-${sectionId}`);
+            playbackContainer.innerHTML = '<p class="text-blue-600"><i class="fa-solid fa-spinner fa-spin mr-2"></i> Generating audio... Please wait.</p>';
+            button.disabled = true;
+
+            const payload = {
+                contents: [{
+                    parts: [{ text: prompt }]
+                }],
+                generationConfig: {
+                    responseModalities: ["AUDIO"],
+                    speechConfig: {
+                        voiceConfig: {
+                            prebuiltVoiceConfig: { voiceName: "Kore" }
+                        }
+                    }
+                },
+                model: "gemini-2.5-flash-preview-tts"
+            };
+
+            const apiKey = ""; 
+            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-tts:generateContent?key=${apiKey}`;
+            
+            let audioUrl = null;
+            let attempts = 0;
+            const maxAttempts = 3;
+
+            while (attempts < maxAttempts) {
+                try {
+                    const response = await fetch(apiUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+
+                    if (response.status === 401) {
+                        throw new Error('API request failed with status: 401. Check API key/permissions.');
+                    }
+                    if (!response.ok) {
+                        throw new Error(`API request failed with status: ${response.status}`);
+                    }
+
+                    const result = await response.json();
+                    const part = result?.candidates?.[0]?.content?.parts?.[0];
+                    const audioData = part?.inlineData?.data;
+                    const mimeType = part?.inlineData?.mimeType;
+
+                    if (audioData && mimeType && mimeType.startsWith("audio/L16")) {
+                        // API returns raw signed PCM 16 bit audio data (audio/L16)
+                        const sampleRateMatch = mimeType.match(/rate=(\d+)/);
+                        const sampleRate = sampleRateMatch ? parseInt(sampleRateMatch[1], 10) : 24000; 
+
+                        const pcmData = base64ToArrayBuffer(audioData);
+                        const pcm16 = new Int16Array(pcmData);
+                        const wavBlob = pcmToWav(pcm16, sampleRate);
+                        audioUrl = URL.createObjectURL(wavBlob);
+                        break; 
+                    } else {
+                        throw new Error("Invalid TTS response format or missing audio data.");
+                    }
+
+                } catch (error) {
+                    console.error("TTS Generation Error:", error.message);
+                    attempts++;
+                    if (attempts < maxAttempts) {
+                        const delay = Math.pow(2, attempts) * 1000; 
+                        await new Promise(resolve => setTimeout(resolve, delay));
+                    } else {
+                        playbackContainer.innerHTML = '<p class="text-red-600"><i class="fa-solid fa-circle-exclamation mr-2"></i> Error generating audio after multiple attempts.</p>';
+                        button.disabled = false;
+                        return;
+                    }
+                }
+            }
+
+            if (audioUrl) {
+                playbackContainer.innerHTML = `<audio controls class="w-full rounded-md shadow-inner"><source src="${audioUrl}" type="audio/wav"></audio>`;
+            }
+            button.disabled = false;
+        };
+
+
+        // --- Quiz Data Structure (25 Questions) ---
+        // Answers are the EXACT phrase heard in the audio, but grading is not case-sensitive.
+        const questionsData = [
+            // Part 1: Dates & Days (6 Questions)
+            { id: 1, type: 'fitb', text: "The first training session is always on **[Day of Week]** afternoon.", answer: 'Monday', section: 1, hint: 'Day of Week' },
+            { id: 2, type: 'fitb', text: "This week, the training session was moved to **[Day of Week]**.", answer: 'Tuesday', section: 1, hint: 'Day of Week' },
+            { id: 3, type: 'fitb', text: "The new center will open on **[Date]**.", answer: 'April 23', section: 1, hint: 'Month and Day (e.g., May 15)' },
+            { id: 4, type: 'fitb', text: "The big presentation is always on **[Day of Week]**.", answer: 'Sunday', section: 1, hint: 'Day of Week' },
+            { id: 5, type: 'fitb', text: "I will start my new job on **[Date]**.", answer: 'October 10', section: 1, hint: 'Month and Day (e.g., June 20)' },
+            { id: 6, type: 'tf', text: "The weekly market is closed on Wednesday.", answer: 'True', section: 1, hint: 'True/False' },
+            
+            // Part 2: Units of Measurement & Numbers (6 Questions)
+            { id: 7, type: 'fitb', text: "The distance to the main warehouse is exactly **[Number]** kilometers.", answer: '35', section: 2, hint: 'Number' },
+            { id: 8, type: 'fitb', text: "The shelf we need is 90 **[Unit]** long.", answer: 'centimeters', section: 2, hint: 'Unit of Length' },
+            { id: 9, type: 'fitb', text: "The total volume required is **[Number]** liters.", answer: '500', section: 2, hint: 'Number' },
+            { id: 10, type: 'fitb', text: "The outdoor temperature is 30 degrees **[Unit]**.", answer: 'Celsius', section: 2, hint: 'Unit of Temperature' },
+            { id: 11, type: 'fitb', text: "The new mobile device weighs only **[Number]** grams.", answer: '180', section: 2, hint: 'Number' },
+            { id: 12, type: 'fitb', text: "The security pole is 4 **[Unit]** tall.", answer: 'meters', section: 2, hint: 'Unit of Length' },
+
+            // Part 3: Nationality & Country Names (6 Questions)
+            { id: 13, type: 'fitb', text: "The speaker's nationality is **[Nationality]**.", answer: 'Omani', section: 3, hint: 'Nationality' },
+            { id: 14, type: 'fitb', text: "The colleague Jane is from **[Country]**.", answer: 'Canada', section: 3, hint: 'Country Name' },
+            { id: 15, type: 'fitb', text: "The company hired a new **[Nationality]** engineer.", answer: 'American', section: 3, hint: 'Nationality' },
+            { id: 16, type: 'fitb', text: "The main office is located in the country of **[Country]**.", answer: 'Japan', section: 3, hint: 'Country Name' },
+            { id: 17, type: 'fitb', text: "The new manager's nationality is **[Nationality]**.", answer: 'British', section: 3, hint: 'Nationality' },
+            { id: 18, type: 'tf', text: "The company's biggest client is in Germany.", answer: 'False', section: 3, hint: 'True/False' },
+
+            // Part 4: Months & Years (7 Questions)
+            { id: 19, type: 'fitb', text: "The new semester always begins in **[Month]**.", answer: 'September', section: 4, hint: 'Month Name' },
+            { id: 20, type: 'fitb', text: "The big project deadline is the year **[Year]**.", answer: '2026', section: 4, hint: 'Year' },
+            { id: 21, type: 'fitb', text: "The company was founded in **[Year]**.", answer: '1998', section: 4, hint: 'Year' },
+            { id: 22, type: 'fitb', text: "The staff holiday celebration is in **[Month]**.", answer: 'December', section: 4, hint: 'Month Name' },
+            { id: 23, type: 'fitb', text: "The main international conference is next month in **[Month]**.", answer: 'March', section: 4, hint: 'Month Name' },
+            { id: 24, type: 'tf', text: "The current contract expires in the year 2025.", answer: 'True', section: 4, hint: 'True/False' },
+            { id: 25, type: 'fitb', text: "The construction phase will begin in the year **[Year]**.", answer: '2027', section: 4, hint: 'Year' },
+        ];
+
+
+        const form = document.getElementById('listening-quiz-form');
+        const scoreContainer = document.getElementById('score-container');
+        const scoreText = document.getElementById('score-text');
+        const submitButton = document.getElementById('submit-button');
+        const totalQuestions = questionsData.length;
+        let isSubmitted = false;
+
+
+        // Utility to normalize answers (case-insensitive, ignores extra spaces and symbols)
+        const normalizeAnswer = (answer) => {
+            if (answer === null || answer === undefined) return '';
+            // Lowercase, remove all non-alphanumeric characters (except spaces) for flexible date/number checking
+            let normalized = String(answer).toLowerCase().replace(/[^a-z0-9\s]+/g, ''); 
+            return normalized.trim();
+        };
+        
+        // Function to create the HTML for a single question
+        const createQuestionElement = (q) => {
+            const questionDiv = document.createElement('div');
+            questionDiv.id = `q-${q.id}`;
+            questionDiv.className = 'p-4 border border-gray-200 rounded-lg mb-4 bg-white shadow-md transition duration-150';
+
+            // Clean up the text for display by replacing the bracketed answer with a simple blank
+            let displayQuestionText = q.text.replace(/\[[^\]]+\]/g, '_______');
+
+            let inputHtml = '';
+            
+            // Check for True/False questions (they are stored as FITB type with True/False answers for simplicity)
+            if (q.type === 'tf' || q.answer === 'True' || q.answer === 'False') {
+                inputHtml = `
+                    <div class="flex space-x-6 mt-3">
+                        <input type="radio" id="q${q.id}-t" name="answer-${q.id}" value="True" class="hidden">
+                        <label for="q${q.id}-t" class="cursor-pointer px-5 py-2 border-2 border-gray-300 text-gray-700 font-medium rounded-full transition duration-150 hover:border-emerald-500">True</label>
+                        <input type="radio" id="q${q.id}-f" name="answer-${q.id}" value="False" class="hidden">
+                        <label for="q${q.id}-f" class="cursor-pointer px-5 py-2 border-2 border-gray-300 text-gray-700 font-medium rounded-full transition duration-150 hover:border-emerald-500">False</label>
+                    </div>
+                `;
+            } else {
+                // For Fill-in-the-Blank and short answer
+                inputHtml = `
+                    <input type="text" name="answer-${q.id}" class="w-full mt-2 p-2 border border-gray-300 rounded-md focus:ring-emerald-500 focus:border-emerald-500 text-sm" placeholder="Write your answer here (e.g., ${q.hint})">
+                `;
+            }
+
+            questionDiv.innerHTML = `
+                <div class="flex items-start">
+                    <span class="font-bold text-lg text-emerald-600 mr-3">${q.id}.</span>
+                    <div class="flex-grow">
+                        <p class="text-gray-800 font-medium mb-2">${displayQuestionText}</p>
+                        ${inputHtml}
+                    </div>
+                    <span id="feedback-${q.id}" class="text-xl ml-4 pt-1 opacity-0 transition duration-300" style="min-width: 25px;"></span>
+                </div>
+                <p id="correct-answer-${q.id}" class="text-sm italic mt-2 hidden"></p>
+            `;
+
+            return questionDiv;
+        };
+
+        // Function to render all questions into the form
+        const renderQuestions = () => {
+            questionsData.forEach(q => {
+                const sectionContainer = document.getElementById(`section-${q.section}`);
+                if (sectionContainer) {
+                    sectionContainer.appendChild(createQuestionElement(q));
+                }
+            });
+        };
+
+        // Grading logic
+        const checkAnswers = (event) => {
+            event.preventDefault();
+            if (isSubmitted) return; 
+
+            let correctCount = 0;
+
+            questionsData.forEach(q => {
+                const questionElement = document.getElementById(`q-${q.id}`);
+                const feedbackSpan = document.getElementById(`feedback-${q.id}`);
+                const correctAnswerP = document.getElementById(`correct-answer-${q.id}`);
+
+                let userAnswer = null;
+                const inputName = `answer-${q.id}`;
+
+                if (q.type === 'tf' || q.answer === 'True' || q.answer === 'False') {
+                    const selectedRadio = form.querySelector(`input[name="${inputName}"]:checked`);
+                    userAnswer = selectedRadio ? selectedRadio.value : null;
+                } else { // FITB and Short Answer
+                    const textInput = form.querySelector(`input[name="${inputName}"]`);
+                    userAnswer = textInput ? textInput.value : null;
+                }
+
+                const isAnswered = userAnswer !== null && userAnswer.trim() !== '';
+                
+                // Normalization is key for date/number/name matching
+                const normalizedUserAnswer = normalizeAnswer(userAnswer);
+                const normalizedCorrectAnswer = normalizeAnswer(q.answer);
+                
+                // Compare the normalized answers
+                const isCorrect = isAnswered && normalizedUserAnswer === normalizedCorrectAnswer;
+
+                // 1. Update Score and Feedback
+                if (isCorrect) {
+                    correctCount++;
+                    feedbackSpan.innerHTML = '<i class="fa-solid fa-check text-green-600"></i>'; 
+                } else {
+                    feedbackSpan.innerHTML = '<i class="fa-solid fa-xmark text-red-600"></i>'; 
+                }
+
+                // 2. Show correct answer (if wrong or if they skipped)
+                if (!isCorrect) {
+                    // Show correct answer
+                    correctAnswerP.innerHTML = `<strong>Correct Answer:</strong> ${q.answer}`;
+                    correctAnswerP.classList.remove('hidden');
+                    correctAnswerP.classList.add('text-red-500');
+                } else {
+                    correctAnswerP.classList.add('hidden');
+                }
+
+                // 3. Highlight the user's selected/entered answer and disable inputs
+                const inputs = questionElement.querySelectorAll('input');
+                inputs.forEach(input => input.disabled = true);
+
+                if (userAnswer !== null && isAnswered) {
+                    if (q.type === 'tf' || q.answer === 'True' || q.answer === 'False') {
+                        const selectedRadio = form.querySelector(`input[name="${inputName}"][value="${userAnswer}"]`);
+                        if (selectedRadio) {
+                            const label = selectedRadio.nextElementSibling;
+                            if (label) {
+                                // Add styling based on correctness
+                                label.classList.add(isCorrect ? 'correct-label' : 'incorrect-label', 'border-4', 'font-extrabold');
+                                label.classList.remove('border-gray-300', 'hover:border-emerald-500');
+                                label.style.color = isCorrect ? '#065f46' : '#991b1b'; 
+                            }
+                        }
+                    } else { // FITB
+                        const textInput = form.querySelector(`input[name="${inputName}"]`);
+                        if (textInput) {
+                            textInput.classList.add(isCorrect ? 'bg-green-50' : 'bg-red-50', isCorrect ? 'border-green-500' : 'border-red-500');
+                            textInput.classList.remove('focus:ring-emerald-500', 'focus:border-emerald-500');
+                        }
+                    }
+                }
+
+                feedbackSpan.classList.remove('opacity-0');
+            });
+
+            // 5. Update global score with required style
+            scoreText.textContent = `${correctCount} / ${totalQuestions}`;
+            scoreContainer.classList.remove('hidden');
+
+            // 6. Final UI changes
+            submitButton.disabled = true;
+            submitButton.textContent = 'Results Shown - Review Your Answers';
+            submitButton.classList.remove('bg-emerald-600', 'hover:bg-emerald-700', 'transform', 'hover:scale-105');
+            submitButton.classList.add('bg-gray-400');
+            isSubmitted = true;
+        };
+
+        // Initialize the quiz
+        window.onload = () => {
+            renderQuestions();
+            form.addEventListener('submit', checkAnswers);
+            
+            // Update initial score display
+            scoreText.textContent = `0 / ${totalQuestions}`;
+        };
+    </script>
+
+</body>
+</html>
